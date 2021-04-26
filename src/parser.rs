@@ -1,13 +1,6 @@
-use std::io;
 use crate::categories;
+#[path = "read_file.rs"] mod read_file;
 
-fn get_one_line() -> String{
-    let mut line = String::new();
-    io::stdin()
-        .read_line(&mut line)
-        .expect("failed to read line");
-    return line;
-}
 
 macro_rules! parse_or_fail {
     ($x:expr) => {
@@ -24,14 +17,22 @@ macro_rules! parse_or_fail {
 pub fn read_section() -> Result<Vec<categories::Category>, ()>  {
     let mut res : Vec<categories::Category> = vec![];
     loop {
-        let v: Vec<String> = get_one_line()
+        let line = read_file::get_one_line();
+        let v: Vec<String> = line
                             .split_whitespace()
                             .map(|x| String::from(x))
                             .collect();
-        if v.len() == 0 {continue;}
+        if v.len() == 0 {
+            continue;
+        }
+        if line.as_str().chars().next().unwrap() == '#' {
+            // processes comments
+            continue;
+        }
         let cmd = (&v[0]).as_str();
         match cmd {
             "cat" | "category" | "c" => {
+                // defining a new category
                 if v.len() != 3 {
                     println!("Error! the following lines do not have the appropriate number of arguments.");
                     println!("{:?}", &v);
@@ -45,6 +46,7 @@ pub fn read_section() -> Result<Vec<categories::Category>, ()>  {
                 })
             }
             "score" | "s" | "sc" => {
+                // a certain score.
                 if res.len() == 0 {
                     println!("Error! Unclear which category the following score belongs to");
                     println!("{:?}", &v);

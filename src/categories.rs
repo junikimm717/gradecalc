@@ -69,7 +69,11 @@ impl Category {
                 ) / (self.scores.len() as f64)
             );
         }
-        Err(())
+        else {
+            println!("Error! category {} must consist of scores that are all
+            numbers or all based on points (do not mix and match them)", self.name);
+            Err(())
+        }
     }
 }
 
@@ -81,7 +85,7 @@ pub fn average(v: Vec<Category>) -> Result<f64, ()> {
         weights += cat.weight;
         sum += cat.weight * match cat.avg() {
             Ok(avg) => {
-                println!("The average for category {} is {}%", cat.name, avg);
+                println!("The average for category {} is {}%", cat.name, (100 as f64)*avg);
                 avg
             },
             Err(_) => {
@@ -108,9 +112,4 @@ fn test_1() {
         Ok(x) => assert_eq!(x, 99.1 as f64),
         Err(()) => panic!()
     }
-}
-
-#[test]
-fn test_2() {
-    
 }
