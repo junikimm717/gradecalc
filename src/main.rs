@@ -10,7 +10,7 @@ fn main() {
             });
         }
         Err(_) => {
-            println!("parse failed. please fix bugs above.");
+            eprintln!("parse failed. please fix bugs above.");
         }
     }
 }

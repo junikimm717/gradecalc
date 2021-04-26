@@ -70,7 +70,7 @@ impl Category {
             );
         }
         else {
-            println!("Error! category {} must consist of scores that are all
+            eprintln!("Error! category {} must consist of scores that are all
             numbers or all based on points (do not mix and match them)", self.name);
             Err(())
         }
@@ -89,13 +89,13 @@ pub fn average(v: Vec<Category>) -> Result<f64, ()> {
                 avg
             },
             Err(_) => {
-                println!("failed to calculate grade average");
+                eprintln!("failed to calculate grade average");
                 return Err(());
             }
         };
     }
     if weights == 0 as f64 {
-        println!("Error! Attempting to calculate grade with no categories put in.");
+        eprintln!("Error! Attempting to calculate grade with no categories put in.");
         return Err(());
     }
     return Ok(sum/weights);
