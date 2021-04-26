@@ -4,14 +4,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4425c9c4-3e82-4a1c-9cca-01359cd2c490" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/gradecalc.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/read_file.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/read_file.rs" afterDir="false" />
-    </list>
+    <list default="true" id="4425c9c4-3e82-4a1c-9cca-01359cd2c490" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +56,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1619457630182</updated>
-      <workItem from="1619457635317" duration="1547000" />
+      <workItem from="1619457635317" duration="1693000" />
     </task>
     <servers />
   </component>
