@@ -3,9 +3,11 @@ target/release/gradecalc:
 
 .PHONY: target/release/gradecalc install uninstall
 
+INSTALL_DIR=/usr/local/bin
+
 install: target/release/gradecalc
-	mv target/release/gradecalc /usr/local/bin
-	chmod 755 /usr/local/bin/gradecalc
+	mv target/release/gradecalc $(INSTALL_DIR)
+	chmod 755 $(INSTALL_DIR)/gradecalc
 
 uninstall:
-	rm -rf /usr/local/bin/gradecalc
+	rm -rf $(INSTALL_DIR)/gradecalc

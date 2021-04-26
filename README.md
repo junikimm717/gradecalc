@@ -12,6 +12,10 @@ cd gradecalc
 sudo make install
 ```
 
+Note that gradecalc is, by default, stored in the /usr/local/bin directory.
+Change this in the Makefile if you wish to install gradecalc in another
+directory.
+
 # Additional Information
 
 Please check the Github Wiki.
