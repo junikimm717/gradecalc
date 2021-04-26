@@ -5,7 +5,7 @@ target/release/gradecalc:
 
 install: target/release/gradecalc
 	mv target/release/gradecalc /usr/local/bin
-	chmod 644 /usr/local/bin/gradecalc
+	chmod 755 /usr/local/bin/gradecalc
 
-uninstall: target/release/gradecalc
+uninstall:
 	rm -rf /usr/local/bin/gradecalc

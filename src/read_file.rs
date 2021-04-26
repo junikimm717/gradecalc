@@ -1,7 +1,7 @@
-use std::fs;
 use std::env;
 use std::io;
 use std::fs::File;
+use std::io::{BufRead};
 
 fn file_name() -> Option<String> {
     let args: Vec<String> =env::args().collect();
@@ -9,6 +9,17 @@ fn file_name() -> Option<String> {
         return Some((&args[1]).to_string());
     }
     return None;
+}
+
+pub fn get_one_line(reader: &mut Option<io::BufReader<File>>) -> String {
+    return match reader {
+        Some(r) => {
+            let mut s: String = String::new();
+            r.read_line(&mut s).ok().expect("failed parse of file");
+            s
+        }
+        None => {line_from_stdin()}
+    }
 }
 
 fn line_from_stdin() -> String {
@@ -19,17 +30,12 @@ fn line_from_stdin() -> String {
     return line;
 }
 
-/*
-fn line_from_fs() -> io::BufReader {
+pub fn get_reader() -> Option<io::BufReader<File>> {
     let path = match file_name() {
         Some(x) => x,
         None => {return None;}
     };
-    let mut reader = io::BufReader::new(File::open(path)?);
+    let reader = io::BufReader::new(File::open(path).ok()?);
     // read from a file and return one string.
-}
-*/
-
-pub fn get_one_line() -> String{
-    return line_from_stdin();
+    return Some(reader);
 }

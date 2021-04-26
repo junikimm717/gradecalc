@@ -1,4 +1,6 @@
 use crate::categories;
+use std::io::BufReader;
+
 #[path = "read_file.rs"] mod read_file;
 
 
@@ -16,8 +18,12 @@ macro_rules! parse_or_fail {
 
 pub fn read_section() -> Result<Vec<categories::Category>, ()>  {
     let mut res : Vec<categories::Category> = vec![];
+    let mut reader: Option<BufReader<std::fs::File>> = match read_file::get_reader() {
+        Some(x) => Some(x),
+        None => None
+    };
     loop {
-        let line = read_file::get_one_line();
+        let line = read_file::get_one_line(&mut reader);
         let v: Vec<String> = line
                             .split_whitespace()
                             .map(|x| String::from(x))
