@@ -1,10 +1,15 @@
-#[derive(Debug)]
+extern crate serde;
+use serde::{Serialize, Deserialize};
+
+#[path = "errors.rs"] mod errors;
+
+#[derive(Debug, Serialize, Deserialize)]
 pub enum Score {
     Points(f64, f64),
     Percentage(f64)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Category {
     pub name: String,
     pub weight: f64,
@@ -36,7 +41,7 @@ impl Category {
         }
         return true;
     }
-    pub fn avg(&self) -> Result<f64, ()> {
+    pub fn avg(&self) -> Result<f64, crate::errors::Error> {
         if self.all_points() {
             return Ok(
                 self.scores.iter().fold(
@@ -70,14 +75,12 @@ impl Category {
             );
         }
         else {
-            eprintln!("Error! category {} must consist of scores that are all
-            numbers or all based on points (do not mix and match them)", self.name);
-            Err(())
+            Err(crate::errors::Error::AverageFail("All grades in a category must be all based on points or all based on Percentages."))
         }
     }
 }
 
-pub fn average(v: Vec<Category>) -> Result<f64, ()> {
+pub fn average(v: Vec<Category>) -> Result<f64, crate::errors::Error> {
     let mut sum: f64 = 0 as f64;
     let mut weights: f64 = 0 as f64;
     for cat in v {
@@ -89,14 +92,12 @@ pub fn average(v: Vec<Category>) -> Result<f64, ()> {
                 avg
             },
             Err(_) => {
-                eprintln!("failed to calculate grade average");
-                return Err(());
+                return Err(crate::errors::Error::AverageFail("failed to calculate grade average"));
             }
         };
     }
     if weights == 0 as f64 {
-        eprintln!("Error! Attempting to calculate grade with no categories put in.");
-        return Err(());
+        return Err(crate::errors::Error::AverageFail("no categories."));
     }
     return Ok(sum/weights);
 }
@@ -109,7 +110,7 @@ fn test_1() {
         scores: vec![Score::Percentage(99.1) ]
     };
     match cat1.avg() {
-        Ok(x) => assert_eq!(x, 99.1 as f64),
-        Err(()) => panic!()
+        Ok(x) => assert_eq!(x, 0.991 as f64),
+        Err(_) => panic!()
     }
 }
